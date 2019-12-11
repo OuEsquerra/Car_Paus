@@ -16,6 +16,8 @@ ModulePlayer::~ModulePlayer()
 // Load assets
 bool ModulePlayer::Start()
 {
+	
+
 	LOG("Loading player");
 
 	VehicleInfo car;
@@ -99,6 +101,9 @@ bool ModulePlayer::Start()
 	vehicle = App->physics->AddVehicle(car);
 	vehicle->SetPos(0, 12, 10);
 	
+	App->camera->Position.y += vehicle->GetPos().y + 10;
+	App->camera->Position.z += vehicle->GetPos().z -15;
+	
 	return true;
 }
 
@@ -115,63 +120,52 @@ update_status ModulePlayer::Update(float dt)
 {
 	turn = acceleration = brake = 0.0f;
 
-
-
-
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 	{
 		if (vehicle->GetKmh() < 0)
 		{
 			brake = BRAKE_POWER;
 		}
 	}
-	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 	{
 		acceleration = MAX_ACCELERATION;
 	}
 
-	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		if(turn < TURN_DEGREES)
 			turn +=  TURN_DEGREES;
 	}
 
-	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
 		if(turn > -TURN_DEGREES)
 			turn -= TURN_DEGREES;
 	}
 
-	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN)
+	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 	{
 		if (vehicle->GetKmh() > 0)
 		{
 			brake = BRAKE_POWER;
 		}
 	}
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 	{
 
 		acceleration = -MAX_ACCELERATION;
 	}
 
-	//btTransform = vehicle->GetTransform
-
-	//LOG("Car pos: %f",vehicle->GetTransform())
-	//vehicle->vehicle->getRightAxis();
-
-
+	//Look at car
 	App->camera->LookAt( vehicle->GetPos() );
 
-	App->camera->Position.x = vehicle->GetPos().x;
-	App->camera->Position.y = vehicle->GetPos().y+20;
-	App->camera->Position.z = vehicle->GetPos().z -20;
+	//Camera pos following car
+	App->camera->Position = vec3(vehicle->GetPos().x - vehicle->vehicle->getForwardVector().x() * 10 , vehicle->GetPos().y + 6, vehicle->GetPos().z - vehicle->vehicle->getForwardVector().z() * 10 );
 
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
-
-	
 
 	vehicle->Render();
 
@@ -181,6 +175,3 @@ update_status ModulePlayer::Update(float dt)
 
 	return UPDATE_CONTINUE;
 }
-
-
-
