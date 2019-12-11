@@ -50,6 +50,8 @@ public:
 	void Brake(float force);
 	void Turn(float degrees);
 	float GetKmh() const;
+	btRigidBody* GetBody() const;
+	vec3 GetPos() const;
 public:
 
 	VehicleInfo info;
