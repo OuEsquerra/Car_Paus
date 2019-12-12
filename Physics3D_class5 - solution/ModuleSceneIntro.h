@@ -30,6 +30,8 @@ public:
 	Sphere s_snake2[MAX_SNAKE];
 	*/
 
+	p2DynArray<Primitive*> primitives;
+
 	PhysBody3D* pb_chassis;
 	Cube p_chassis;
 

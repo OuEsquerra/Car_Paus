@@ -160,11 +160,13 @@ update_status ModulePlayer::Update(float dt)
 	//Look at car
 	App->camera->LookAt( vehicle->GetPos() );
 
-	camera_offset = 5 + vehicle->GetKmh() / 10;
+	//camera_offset =  vehicle->GetKmh() / 10;
+
+	//App->camera->Z = vec3(vehicle->vehicle->getForwardVector().x(), vehicle->vehicle->getForwardVector().y(),vehicle->vehicle->getForwardVector().z()  );
 
 
 	//Camera pos following car
-	App->camera->Position = vec3(vehicle->GetPos().x - vehicle->vehicle->getForwardVector().x() * camera_offset , vehicle->GetPos().y + 3 , vehicle->GetPos().z - vehicle->vehicle->getForwardVector().z() * camera_offset );
+	App->camera->Position = vec3(vehicle->GetPos().x - vehicle->vehicle->getForwardVector().x() * 10, vehicle->GetPos().y + 3 , vehicle->GetPos().z - vehicle->vehicle->getForwardVector().z() * 10 );
 
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);

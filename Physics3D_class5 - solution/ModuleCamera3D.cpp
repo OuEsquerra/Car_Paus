@@ -81,7 +81,7 @@ update_status ModuleCamera3D::Update(float dt)
 			float DeltaX = (float)dx * Sensitivity;
 
 			X = rotate(X, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-			//Y = rotate(Y, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+			Y = rotate(Y, DeltaX, vec3(0.0f, 1.0f, 0.0f));
 			Z = rotate(Z, DeltaX, vec3(0.0f, 1.0f, 0.0f));
 		}
 
@@ -95,7 +95,7 @@ update_status ModuleCamera3D::Update(float dt)
 			if(Y.y < 0.0f)
 			{
 				Z = vec3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
-				//Y = cross(Z, X);
+				Y = cross(Z, X);
 			}
 		}
 

@@ -3,6 +3,7 @@
 #include "ModuleSceneIntro.h"
 #include "Primitive.h"
 #include "PhysBody3D.h"
+#include "ModulePhysics3D.h"
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -17,8 +18,13 @@ bool ModuleSceneIntro::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 
-	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
+	//App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	//App->camera->LookAt(vec3(0, 0, 0));
+
+	Sphere* s = new Sphere(5);
+	primitives.PushBack(s);
+	s->SetPos(0.f, 5.f, 10.f);
+
 
 	return ret;
 }
@@ -36,11 +42,13 @@ update_status ModuleSceneIntro::Update(float dt)
 {
 	Plane p(0, 2, 0, 0);
 	p.axis = true;
-	p.InnerRender();
 	p.color.r = 255;
+	p.Render();
+	
+	//App->physics.AddBody(new Cylinder, 10.0f);
 
-
-
+	for (uint n = 0; n < primitives.Count(); n++)
+		primitives[n]->Render();
 
 	return UPDATE_CONTINUE;
 }
