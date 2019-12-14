@@ -21,9 +21,12 @@ bool ModuleSceneIntro::Start()
 	//App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	//App->camera->LookAt(vec3(0, 0, 0));
 
-	Sphere* s = new Sphere(5);
-	primitives.PushBack(s);
-	s->SetPos(0.f, 5.f, 10.f);
+	Cylinder bowl1(2, 5);
+	bowl1.SetPos(0, 0, 0);
+	bowl1.SetRotation(90,vec3(1,0,0));
+	App->physics->AddBody(bowl1, 10);
+	primitives.PushBack(&bowl1);
+
 
 
 	return ret;
