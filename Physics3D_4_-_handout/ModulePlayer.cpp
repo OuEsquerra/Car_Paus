@@ -61,20 +61,22 @@ update_status ModulePlayer::Update(float dt)
 
 			App->camera->LookAt(vehicle->GetPos());
 
-			if (throw_time->Read() > 2000)
+			App->camera->Position = vec3(-50,10,0);
+
+			if (throw_time->Read() > 7000)
 			{
 				state = GameLoopState::DRIVING;
 
 				able_to_control = true;
 
-				//App->physics->RemoveBodyFromWorld(vehicle->GetBody());
+				App->physics->RemoveBodyFromWorld(vehicle->GetBody());
 
 				
 				vehicle->SetPos(0, 1, 0);
 				//delete car_sensor;
 				
 
-				//InitCar();
+				InitCar();
 			}
 
 			break;

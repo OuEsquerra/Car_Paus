@@ -21,9 +21,9 @@ bool ModuleSceneIntro::Start()
 	App->camera->LookAt(vec3(0, 0, 0));
 
 
-	controls_sensor = new Cube(vec3(5, 1, 2),0,true,sensorType::CONTROLS);
+	controls_sensor = new Cube(vec3(25, 1, 2),0,true,sensorType::CONTROLS);
 	primitives.PushBack(controls_sensor);
-	controls_sensor->SetPos(0.f, 2.f, 5.f);
+	controls_sensor->SetPos(-65.f, 2.f, 20.f);
 
 
 	CreateCircuitWall(vec3(60.0f, 4.0f, 1.0f), vec3(10.0f, 2.0f, 20.0f), vec3(0.0f, 1.0f, 0.0f), 90.0f);

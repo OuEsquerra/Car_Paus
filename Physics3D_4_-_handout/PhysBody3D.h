@@ -40,7 +40,7 @@ public:
 
 	void GetTransform(float* matrix) const;
 	void SetTransform(const float* matrix) const;
-	void SetPos(float x, float y, float z);
+	void SetPos(float x, float y, float z,bool iscar = false);
 
 	void SetSpeed(vec3 speed);
 	void Push(vec3 force);

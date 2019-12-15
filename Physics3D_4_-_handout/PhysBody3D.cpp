@@ -84,10 +84,13 @@ void PhysBody3D::SetTransform(const float* matrix) const
 }
 
 // ---------------------------------------------------------
-void PhysBody3D::SetPos(float x, float y, float z)
+void PhysBody3D::SetPos(float x, float y, float z,bool iscar)
 {
-	if (HasBody() == false )
-		return;
+	if (!iscar)
+	{
+		if (HasBody() == false)
+			return;
+	}
 
 	btTransform trans = body->getWorldTransform();
 	trans.setOrigin(btVector3(x, y, z));
