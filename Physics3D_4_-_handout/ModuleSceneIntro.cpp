@@ -39,9 +39,9 @@ bool ModuleSceneIntro::Start()
 	//	Size += SizeIncrement;
 	//}
 
-	Cube* s = new Cube(vec3(5, 1, 2),0);
-	primitives.PushBack(s);
-	s->SetPos(10.f, 1.f, 2.5f);
+	controls_sensor = new Cube(vec3(5, 1, 2),0,true,sensorType::CONTROLS);
+	primitives.PushBack(controls_sensor);
+	controls_sensor->SetPos(10.f, 2.f, 2.5f);
 
 
 	//TODO 4: Link some other spheres with your Hinge constraint
@@ -99,7 +99,7 @@ void ModuleSceneIntro::DebugSpawnPrimitive(Primitive * p)
 {
 	primitives.PushBack(p);
 	p->SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
-	p->body.collision_listeners.PushBack(this);
+	p->body.collision_listeners.add(this);
 	p->body.Push(-App->camera->Z * 1000.f);
 }
 
@@ -123,6 +123,7 @@ update_status ModuleSceneIntro::PostUpdate(float dt)
 {
 	for (uint n = 0; n < primitives.Count(); n++)
 	{
+		if(!primitives[n]->sensor)
 		primitives[n]->Render();
 	}
 

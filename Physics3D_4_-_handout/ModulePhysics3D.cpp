@@ -81,6 +81,8 @@ update_status ModulePhysics3D::PreUpdate(float dt)
 {
 	world->stepSimulation(dt, 15);
 
+	world->getDispatcher()->getNumManifolds();
+
 	for (int n = 0; n < world->getDispatcher()->getNumManifolds(); n++)
 	{
 		btPersistentManifold* manifold = world->getDispatcher()->getManifoldByIndexInternal(n);
@@ -89,16 +91,20 @@ update_status ModulePhysics3D::PreUpdate(float dt)
 			PhysBody3D* body1 = (PhysBody3D*)manifold->getBody0()->getUserPointer();
 			PhysBody3D* body2 = (PhysBody3D*)manifold->getBody1()->getUserPointer();
 
-			if (body1 != nullptr && body2 != nullptr)
+			if (body1 && body2 )
 			{
-				for (uint n = 0; n < body1->collision_listeners.Count(); n++)
+				p2List_item<Module*>* item = body1->collision_listeners.getFirst();						
+				while (item)																				
 				{
-					body1->collision_listeners[n]->OnCollision(body1, body2);
+					item->data->OnCollision(body1, body2);												
+					item = item->next;
 				}
 
-				for (uint n = 0; n < body2->collision_listeners.Count(); n++)
+				item = body2->collision_listeners.getFirst();												
+				while (item)
 				{
-					body2->collision_listeners[n]->OnCollision(body2, body1);
+					item->data->OnCollision(body2, body1);												
+					item = item->next;
 				}
 			}
 		}

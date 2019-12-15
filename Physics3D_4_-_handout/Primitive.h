@@ -31,6 +31,7 @@ public:
 	mat4x4 transform;
 	bool axis,wire;
 	PhysBody3D body;
+	bool sensor;
 
 protected:
 	virtual void InnerRender() const;
@@ -41,33 +42,36 @@ protected:
 class Cube : public Primitive
 {
 public :
-	Cube(const vec3& size = vec3(1.f,1.f,1.f), float mass = 1.f);
+	Cube(const vec3& size = vec3(1.f,1.f,1.f), float mass = 1.f,bool sensor = false, sensorType sensor_type= sensorType::UNKNOWN);
 
 	vec3 GetSize() const;
 protected:
 	void InnerRender() const;
 private:
 	vec3 size;
+
+
 };
 
 // ============================================
 class Sphere : public Primitive
 {
 public:
-	Sphere(float radius = 1.f, float mass = 1.f);
+	Sphere(float radius = 1.f, float mass = 1.f, bool sensor = false, sensorType sensor_type = sensorType::UNKNOWN);
 
 	float GetRadius() const;
 protected:
 	void InnerRender() const;
 private:
 	float radius;
+
 };
 
 // ============================================
 class Cylinder : public Primitive
 {
 public:
-	Cylinder(float radius = 1.f, float height = 2.f, float mass = 1.f);
+	Cylinder(float radius = 1.f, float height = 2.f, float mass = 1.f, bool sensor = false, sensorType sensor_type = sensorType::UNKNOWN);
 
 	float GetRadius() const;
 	float GetHeight() const;
@@ -76,6 +80,7 @@ protected:
 public:
 	float radius;
 	float height;
+	
 };
 
 // ============================================

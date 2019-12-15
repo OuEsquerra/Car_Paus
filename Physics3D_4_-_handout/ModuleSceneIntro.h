@@ -5,6 +5,7 @@
 
 class Primitive;
 class  PhysBody3D;
+class Cube;
 
 class ModuleSceneIntro : public Module
 {
@@ -24,5 +25,9 @@ private:
 	void HandleDebugInput();
 	void DebugSpawnPrimitive(Primitive* p);
 
+	
+
+public:
 	p2DynArray<Primitive*> primitives;
+	Cube* controls_sensor;
 };

@@ -28,23 +28,28 @@ PhysBody3D::~PhysBody3D()
 	}
 }
 
-void PhysBody3D::SetBody(Sphere* primitive, float mass)
+sensorType	PhysBody3D::GetSensorType()const
 {
-	SetBody(new btSphereShape(primitive->GetRadius()),primitive, mass);
+	return sensor_type;
 }
 
-void PhysBody3D::SetBody(Cube* primitive, float mass)
+void PhysBody3D::SetBody(Sphere* primitive, float mass, bool sensor, sensorType sensor_type)
+{
+	SetBody(new btSphereShape(primitive->GetRadius()),primitive, mass,sensor, sensor_type);
+}
+
+void PhysBody3D::SetBody(Cube* primitive, float mass, bool sensor ,sensorType sensor_type)
 {
 	btVector3 tmp = { primitive->GetSize().x ,primitive->GetSize().y ,primitive->GetSize().z };
 
-	SetBody(new btBoxShape( tmp / 2 ),primitive, mass);
+	SetBody(new btBoxShape( tmp / 2 ),primitive, mass,sensor, sensor_type);
 }
 
-void PhysBody3D::SetBody(Cylinder* primitive, float mass)
+void PhysBody3D::SetBody(Cylinder* primitive, float mass, bool sensor, sensorType sensor_type)
 {
 	btVector3 tmp = { primitive->GetHeight() / 2, primitive->GetRadius(), 0.0f };
 
-	SetBody(new btCylinderShape(tmp),primitive, mass);
+	SetBody(new btCylinderShape(tmp),primitive, mass,sensor, sensor_type);
 }
 
 bool PhysBody3D::HasBody() const
@@ -111,7 +116,7 @@ void PhysBody3D::Stop()
 		body->clearForces();
 }
 
-void PhysBody3D::SetBody(btCollisionShape * shape, Primitive* parent, float mass)
+void PhysBody3D::SetBody(btCollisionShape * shape, Primitive* parent, float mass, bool sensor, sensorType sensor_type)
 {
 	assert(HasBody() == false);
 
@@ -132,6 +137,18 @@ void PhysBody3D::SetBody(btCollisionShape * shape, Primitive* parent, float mass
 	body = new btRigidBody(rbInfo);
 
 	body->setUserPointer(this);
+
+	if (sensor)
+	{
+		body->setCollisionFlags( btCollisionObject::CF_NO_CONTACT_RESPONSE); //body->getCollisionFlags() |
+	}
+
+	if (sensor)
+	{
+		this->collision_listeners.add(App->player);
+	}
+
+	this->sensor_type = sensor_type;
 
 	App->physics->AddBodyToWorld(body);
 }

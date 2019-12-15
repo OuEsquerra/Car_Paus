@@ -111,10 +111,11 @@ void Primitive::Scale(float x, float y, float z)
 
 // CUBE ============================================
 
-Cube::Cube(const vec3& _size, float mass) : Primitive(), size(_size)
+Cube::Cube(const vec3& _size, float mass, bool sensor, sensorType sensor_type) : Primitive(), size(_size)
 {
+	this->sensor = (sensor);
 	type = PrimitiveTypes::Primitive_Cube;
-	body.SetBody(this, mass);
+	body.SetBody(this, mass,sensor, sensor_type);
 }
 
 vec3 Cube::GetSize() const
@@ -171,10 +172,11 @@ void Cube::InnerRender() const
 
 // SPHERE ============================================
 
-Sphere::Sphere(float _radius, float mass) : Primitive(), radius(_radius)
+Sphere::Sphere(float _radius, float mass, bool sensor, sensorType sensor_type) : Primitive(), radius(_radius)
 {
+	this->sensor = (sensor);
 	type = PrimitiveTypes::Primitive_Sphere;
-	body.SetBody(this, mass);
+	body.SetBody(this, mass,sensor, sensor_type);
 }
 
 float Sphere::GetRadius() const
@@ -189,10 +191,12 @@ void Sphere::InnerRender() const
 
 
 // CYLINDER ============================================
-Cylinder::Cylinder(float radius, float height, float mass) : Primitive(), radius(radius), height(height)
+Cylinder::Cylinder(float radius, float height, float mass, bool sensor, sensorType sensor_type) : Primitive(), radius(radius), height(height)
 {
+	this->sensor = (sensor);
 	type = PrimitiveTypes::Primitive_Cylinder;
-	body.SetBody(this, mass);
+	body.SetBody(this, mass,sensor, sensor_type);
+	
 }
 
 float Cylinder::GetRadius() const
@@ -209,7 +213,7 @@ void Cylinder::InnerRender() const
 {
 	glPushMatrix();
 	mat4x4 rotateMat = IdentityMatrix;
-	rotateMat.rotate(90.f, vec3(0, 0, 1));
+	rotateMat.rotate(0.f, vec3(0, 0, 1));
 	glMultMatrixf(&rotateMat);
 
 	int n = 30;

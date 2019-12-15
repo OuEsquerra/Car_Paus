@@ -102,6 +102,9 @@ bool ModulePlayer::Start()
 	
 	vehicle->SetPos(0, 12, 10);
 	
+
+	car_sensor = new Cube(vec3(2,1,2),0,true,sensorType::CAR);
+	App->scene_intro->primitives.PushBack(car_sensor);
 	App->camera->Position.y += vehicle->GetPos().y + 10;
 	App->camera->Position.z += vehicle->GetPos().z -15;
 	
@@ -120,44 +123,45 @@ bool ModulePlayer::CleanUp()
 update_status ModulePlayer::Update(float dt)
 {
 	turn = acceleration = brake = 0.0f;
-
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+	if (able_to_control)
 	{
-		if (vehicle->GetKmh() < 0)
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 		{
-			brake = BRAKE_POWER;
+			if (vehicle->GetKmh() < 0)
+			{
+				brake = BRAKE_POWER;
+			}
+		}
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+		{
+			acceleration = MAX_ACCELERATION;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+		{
+			if (turn < TURN_DEGREES)
+				turn += TURN_DEGREES;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+		{
+			if (turn > -TURN_DEGREES)
+				turn -= TURN_DEGREES;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+		{
+			if (vehicle->GetKmh() > 0)
+			{
+				brake = BRAKE_POWER;
+			}
+		}
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+		{
+
+			acceleration = -MAX_ACCELERATION;
 		}
 	}
-	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-	{
-		acceleration = MAX_ACCELERATION;
-	}
-
-	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-	{
-		if(turn < TURN_DEGREES)
-			turn +=  TURN_DEGREES;
-	}
-
-	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-	{
-		if(turn > -TURN_DEGREES)
-			turn -= TURN_DEGREES;
-	}
-
-	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
-	{
-		if (vehicle->GetKmh() > 0)
-		{
-			brake = BRAKE_POWER;
-		}
-	}
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-	{
-
-		acceleration = -MAX_ACCELERATION;
-	}
-
 	//Look at car
 	App->camera->LookAt( vehicle->GetPos() );
 
@@ -175,9 +179,22 @@ update_status ModulePlayer::Update(float dt)
 
 	vehicle->Render();
 
+	car_sensor->SetPos(vehicle->GetPos().x, vehicle->GetPos().y+2,vehicle->GetPos().z);
+
 	char title[80];
 	sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());
 	App->window->SetTitle(title);
 
 	return UPDATE_CONTINUE;
+}
+
+void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
+{
+	if (body2->GetSensorType() == sensorType::CONTROLS && body1->GetSensorType() == sensorType::CAR)
+	{
+		able_to_control = false;
+	}
+
+
+
 }
