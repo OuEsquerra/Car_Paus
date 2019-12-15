@@ -28,9 +28,13 @@ private:
 	void HandleDebugInput();
 	void DebugSpawnPrimitive(Primitive* p);
 
+	Cube* left_hinge;
+	Cube* right_hinge;
+
+
 public:
 
-	void CreateCircuitWall(vec3 dimensions, vec3 pos, vec3 rotation, float angle);
+	Cube* CreateCircuitWall(vec3 dimensions, vec3 pos, vec3 rotation, float angle);
 
 	p2DynArray<Primitive*> primitives;
 	Cube* controls_sensor;

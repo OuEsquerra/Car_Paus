@@ -38,7 +38,7 @@ public:
 
 	//TODO 3: Implement the code to add a Hinge constraint ( btHingeConstraint )
 	//void AddConstraintHinge(const Primitive & bodyA, const Primitive & bodyB, ...);
-
+	void AddConstraintHinge(const Primitive& bodyA, const Primitive& bodyB, const btVector3& pivotInA, const btVector3& pivotInB, const btVector3& axisInA, const btVector3& axisInB);
 private:
 	btDefaultCollisionConfiguration*	collision_conf;
 	btCollisionDispatcher*				dispatcher;
@@ -50,6 +50,8 @@ private:
 
 	//p2List<btCollisionShape*> shapes;
 	//p2List<PhysVehicle3D*> vehicles;
+
+	
 };
 
 class DebugDrawer : public btIDebugDraw
