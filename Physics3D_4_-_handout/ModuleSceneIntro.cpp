@@ -38,8 +38,13 @@ bool ModuleSceneIntro::Start()
 		XPos += Size + Size + SizeIncrement + BallDistance;
 		Size += SizeIncrement;
 	}
+	
+	/*Cube* */Cube* top_constrained_cube = new Cube(vec3(10.0f, 5.0f, 1.0f), 1000.0f);
+	top_constrained_cube->SetPos(10.0f, 2.5f, 20.0f);
+	top_constrained_cube->SetRotation(45.0f, vec3(0.0f, 1.0f, 0.0f));
 
-	//TODO 4: Link some other spheres with your Hinge constraint
+	primitives.PushBack(top_constrained_cube);
+	top_constrained_cube->color = Blue;
 
 	return ret;
 }
