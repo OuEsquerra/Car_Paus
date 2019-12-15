@@ -137,6 +137,10 @@ void PhysBody3D::SetBody(btCollisionShape * shape, Primitive* parent, float mass
 	body = new btRigidBody(rbInfo);
 
 	body->setUserPointer(this);
+	
+	
+	
+
 
 	if (sensor)
 	{

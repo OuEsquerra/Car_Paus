@@ -39,14 +39,34 @@ bool ModuleSceneIntro::Start()
 	//	Size += SizeIncrement;
 	//}
 
+
 	controls_sensor = new Cube(vec3(5, 1, 2),0,true,sensorType::CONTROLS);
 	primitives.PushBack(controls_sensor);
 	controls_sensor->SetPos(10.f, 2.f, 2.5f);
 
+	CreateCircuitWall(vec3(60.0f, 4.0f, 1.0f), vec3(10.0f, 2.0f, 20.0f), vec3(0.0f, 1.0f, 0.0f), 90.0f);
 
-	//TODO 4: Link some other spheres with your Hinge constraint
 
+	CreateCircuitWall(vec3(55.0f, 4.0f, 1.0f), vec3(-10.0f, 2.0f, 20.0f), vec3(0.0f, 1.0f, 0.0f), 90.0f);
+	
+	CreateCircuitWall(vec3(40.0f, 4.0f, 1.0f), vec3(-10.0f, 2.0f, -10.0f), vec3(0.0f, 1.0f, 0.0f), 0.0f);
+
+	CreateCircuitWall(vec3(50.0f, 4.0f, 1.0f), vec3(0.0f, 2.0f, 60.0f), vec3(0.0f, 1.0f, 0.0f), 50.0f);
+
+	CreateCircuitWall(vec3(25.0f, 4.0f, 1.0f), vec3(-18.0f, 2.0f, 55.0f), vec3(0.0f, 1.0f, 0.0f), 50.0f);
+
+	CreateCircuitWall(vec3(60.0f, 4.0f, 1.0f), vec3(-10.0f, 2.0f, 80.0f), vec3(0.0f, 1.0f, 0.0f), 0.0f);
+
+	CreateCircuitWall(vec3(40.0f, 4.0f, 1.0f), vec3(-50.0f, 2.0f, 70.0f), vec3(0.0f, 1.0f, 0.0f), -50.0f);
 	return ret;
+}
+
+void ModuleSceneIntro::CreateCircuitWall(vec3 dimensions, vec3 pos, vec3 rotation, float angle) {
+	Cube* wall = new Cube(dimensions, 0.0f);
+	wall->SetPos(pos.x, pos.y, pos.z);
+	wall->SetRotation(angle, rotation);
+	wall->color = Aqua;
+	primitives.PushBack(wall);
 }
 
 // Load assets

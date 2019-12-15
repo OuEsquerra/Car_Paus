@@ -4,8 +4,11 @@
 #include "Globals.h"
 
 class Primitive;
+
 class  PhysBody3D;
 class Cube;
+class vec3;
+
 
 class ModuleSceneIntro : public Module
 {
@@ -25,9 +28,11 @@ private:
 	void HandleDebugInput();
 	void DebugSpawnPrimitive(Primitive* p);
 
-	
 
 public:
+
+	void CreateCircuitWall(vec3 dimensions, vec3 pos, vec3 rotation, float angle);
+
 	p2DynArray<Primitive*> primitives;
 	Cube* controls_sensor;
 };
