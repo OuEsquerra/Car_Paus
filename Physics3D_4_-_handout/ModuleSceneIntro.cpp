@@ -48,7 +48,7 @@ bool ModuleSceneIntro::Start()
 	Cube* right_wall =	CreateCircuitWall(vec3(100.0f, 4.0f, 1.0f), vec3(-78.0f, 2.0f, -14.0f), vec3(0.0f, 1.0f, 0.0f), 90.0f);
 	
 	left_hinge = CreateCircuitWall(vec3(100.0f, 2.5f, 1.0f), vec3(-53.0f, 2.0f, -14.0f), vec3(0.0f, 1.0f, 0.0f), 90.0f);
-	//App->physics->AddConstraintHinge((Primitive)*left_wall, (Primitive)*left_hinge, btVector3(-1.0f, 0.0f, 0.0f), btVector3(1.0f, 0.0f, 0.0f), btVector3(0.0f, 1.0f, 0.0f), btVector3(0.0f, 1.0f, 0.0f));
+	App->physics->AddConstraintHinge(*left_wall, *left_hinge, btVector3(-50.0f, 0.0f, 0.0f), btVector3(-50.0f, 0.0f, 0.0f), btVector3(0.0f, 1.0f, 0.0f), btVector3(0.0f, 1.0f, 0.0f));
 	
 	
 	CreateCircuitWall(vec3(30.0f, 4.0f, 1.0f), vec3(-67.0f, 2.0f, -65.0f), vec3(0.0f, 1.0f, 0.0f), 0.0f);
@@ -139,7 +139,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	for (uint n = 0; n < primitives.Count(); n++)
 		primitives[n]->Update();
 
-	//left_hinge->body.GetBody()->applyTorque(btVector3(0.0f, 50000.0f, 0.0f));
+	left_hinge->body.GetBody()->applyTorque(btVector3(500.0f, 0.0f, 500.0f));
 
 	return UPDATE_CONTINUE;
 }
