@@ -20,29 +20,11 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
-	//const int SnakeLength = 7;
-	//const float StartingSize = 0.5f;
-	//const float SizeIncrement = 0.2f;
-	//const float BallDistance = 0.3f;
-
-	//float XPos = 0.f;
-	//float Size = StartingSize;
-	//for (int n = 0; n < SnakeLength; n++)
-	//{
-	//	Sphere* s = new Sphere(Size);
-	//	primitives.PushBack(s);
-	//	s->SetPos(XPos, 10.f, 2.5f);
-
-	//	//TODO 2: Link all the spheres with your P2P constraints
-
-	//	XPos += Size + Size + SizeIncrement + BallDistance;
-	//	Size += SizeIncrement;
-	//}
-
 
 	controls_sensor = new Cube(vec3(5, 1, 2),0,true,sensorType::CONTROLS);
 	primitives.PushBack(controls_sensor);
-	controls_sensor->SetPos(10.f, 2.f, 2.5f);
+	controls_sensor->SetPos(0.f, 2.f, 5.f);
+
 
 	CreateCircuitWall(vec3(60.0f, 4.0f, 1.0f), vec3(10.0f, 2.0f, 20.0f), vec3(0.0f, 1.0f, 0.0f), 90.0f);
 
@@ -129,6 +111,12 @@ update_status ModuleSceneIntro::Update(float dt)
 	Plane p(vec3(0, 1, 0));
 	p.axis = true;
 	p.Render();
+
+	if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
+	{
+		FreeCamera = !FreeCamera;
+	}
+
 
 	if (App->debug == true)
 		HandleDebugInput();

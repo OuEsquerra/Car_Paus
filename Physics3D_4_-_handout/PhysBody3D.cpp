@@ -86,7 +86,7 @@ void PhysBody3D::SetTransform(const float* matrix) const
 // ---------------------------------------------------------
 void PhysBody3D::SetPos(float x, float y, float z)
 {
-	if (HasBody() == false)
+	if (HasBody() == false )
 		return;
 
 	btTransform trans = body->getWorldTransform();

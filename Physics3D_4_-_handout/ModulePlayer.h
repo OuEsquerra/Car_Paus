@@ -2,9 +2,17 @@
 #include "Module.h"
 #include "Globals.h"
 #include "p2Point.h"
+#include "Timer.h"
 
 struct PhysVehicle3D;
 class Cube;
+
+
+enum class GameLoopState
+{
+	DRIVING,
+	THROW
+};
 
 #define MAX_ACCELERATION 1000.0f
 #define TURN_DEGREES 10.0f * DEGTORAD
@@ -22,6 +30,9 @@ public:
 
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
 
+	void Input();
+	void InitCar();
+
 public:
 
 	PhysVehicle3D* vehicle;
@@ -29,9 +40,19 @@ public:
 	float acceleration;
 	float brake;
 
+	Timer* throw_time;
+
 	bool able_to_control = true;
 
 	Cube* car_sensor;
 
 	float camera_offset;
+
+	//Game Loop Variables
+	GameLoopState state;
+
+	int points = 0;
+	int currentRoundThrows = 0;
+	int round = 0;
+	int bowlsKnocked = 0;
 };
