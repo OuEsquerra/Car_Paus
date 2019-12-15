@@ -44,6 +44,15 @@ update_status ModulePlayer::Update(float dt)
 	{
 		case GameLoopState::DRIVING:
 
+			if (Throws == 2)
+			{
+				App->scene_intro->DeleteBowls();
+
+				App->scene_intro->CreateBowls();
+
+				Throws = 0;
+			}
+
 			Input();
 
 			if (!App->scene_intro->FreeCamera)
@@ -71,12 +80,13 @@ update_status ModulePlayer::Update(float dt)
 
 				App->physics->RemoveBodyFromWorld(vehicle->GetBody());
 
+				car_sensor->SetPos(100, 100, 100);
 				
 				vehicle->SetPos(0, 1, 0);
-				//delete car_sensor;
-				
 
 				InitCar();
+
+				Throws++;
 			}
 
 			break;
@@ -91,7 +101,7 @@ update_status ModulePlayer::Update(float dt)
 	car_sensor->SetPos(vehicle->GetPos().x, vehicle->GetPos().y + 2, vehicle->GetPos().z);
 
 	char title[80];
-	sprintf_s(title, "%d points / Throw In Round %d / Round %d / Bowls Knocked %d", points,currentRoundThrows,round,bowlsKnocked);
+	sprintf_s(title, " Throw %d", Throws);
 	App->window->SetTitle(title);
 
 	return UPDATE_CONTINUE;

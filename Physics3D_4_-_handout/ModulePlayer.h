@@ -15,7 +15,7 @@ enum class GameLoopState
 };
 
 #define MAX_ACCELERATION 1000.0f
-#define TURN_DEGREES 10.0f * DEGTORAD
+#define TURN_DEGREES 7.5f * DEGTORAD
 #define BRAKE_POWER 500.0f
 
 class ModulePlayer : public Module
@@ -51,8 +51,6 @@ public:
 	//Game Loop Variables
 	GameLoopState state;
 
-	int points = 0;
-	int currentRoundThrows = 0;
-	int round = 0;
-	int bowlsKnocked = 0;
+	
+	int Throws=0;
 };

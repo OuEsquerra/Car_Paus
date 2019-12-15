@@ -23,11 +23,10 @@ bool ModuleSceneIntro::Start()
 
 	controls_sensor = new Cube(vec3(25, 1, 2),0,true,sensorType::CONTROLS);
 	primitives.PushBack(controls_sensor);
-	controls_sensor->SetPos(-65.f, 2.f, 20.f);
+	controls_sensor->SetPos(-65.f, 2.f, 0.f);
 
 
 	CreateCircuitWall(vec3(60.0f, 4.0f, 1.0f), vec3(10.0f, 2.0f, 20.0f), vec3(0.0f, 1.0f, 0.0f), 90.0f);
-
 
 	CreateCircuitWall(vec3(56.0f, 4.0f, 1.0f), vec3(-10.0f, 2.0f, 18.0f), vec3(0.0f, 1.0f, 0.0f), 90.0f);
 	
@@ -53,6 +52,9 @@ bool ModuleSceneIntro::Start()
 	
 	CreateCircuitWall(vec3(30.0f, 4.0f, 1.0f), vec3(-67.0f, 2.0f, -65.0f), vec3(0.0f, 1.0f, 0.0f), 0.0f);
 
+
+	CreateBowls();
+	
 	return ret;
 }
 
@@ -141,6 +143,17 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	left_hinge->body.GetBody()->applyTorque(btVector3(500.0f, 0.0f, 500.0f));
 
+	bowl1->body.GetBody()->activate(true);
+	bowl2->body.GetBody()->activate(true);
+	bowl3->body.GetBody()->activate(true);
+	bowl4->body.GetBody()->activate(true);
+	bowl5->body.GetBody()->activate(true);
+	bowl6->body.GetBody()->activate(true);
+	bowl7->body.GetBody()->activate(true);
+	bowl8->body.GetBody()->activate(true);
+	bowl9->body.GetBody()->activate(true);
+	bowl10->body.GetBody()->activate(true);
+
 	return UPDATE_CONTINUE;
 }
 
@@ -162,4 +175,67 @@ void ModuleSceneIntro::OnCollision(PhysBody3D * body1, PhysBody3D * body2)
 	body1->parentPrimitive->color = color;
 	body2->parentPrimitive->color = color;
 
+}
+
+void ModuleSceneIntro::CreateBowls()
+{
+	//bowl_height,bowl_radious
+
+	bowl1 = new Cylinder(bowl_height, bowl_radius);
+	bowl1->SetPos(-65, 1, -50);
+	primitives.PushBack(bowl1);
+
+	bowl2 = new Cylinder(bowl_height, bowl_radius);
+	bowl2->SetPos(-60, 1, -50);
+	primitives.PushBack(bowl2);
+
+	bowl2 = new Cylinder(bowl_height, bowl_radius);
+	bowl2->SetPos(-70, 1, -50);
+	primitives.PushBack(bowl2);
+
+	bowl3 = new Cylinder(bowl_height, bowl_radius);
+	bowl3->SetPos(-65, 1, -40);
+	primitives.PushBack(bowl3);
+
+	bowl4 = new Cylinder(bowl_height, bowl_radius);
+	bowl4->SetPos(-60, 1, -40);
+	primitives.PushBack(bowl4);
+
+	bowl5 = new Cylinder(bowl_height, bowl_radius);
+	bowl5->SetPos(-70, 1, -40);
+	primitives.PushBack(bowl5);
+
+	bowl6 = new Cylinder(bowl_height, bowl_radius);
+	bowl6->SetPos(-65, 1, -45);
+	primitives.PushBack(bowl6);
+
+	bowl7 = new Cylinder(bowl_height, bowl_radius);
+	bowl7->SetPos(-70, 1, -45);
+	primitives.PushBack(bowl7);
+
+	bowl8 = new Cylinder(bowl_height, bowl_radius);
+	bowl8->SetPos(-60, 1, -45);
+	primitives.PushBack(bowl8);
+
+	bowl9 = new Cylinder(bowl_height, bowl_radius);
+	bowl9->SetPos(-65, 1, -35);
+	primitives.PushBack(bowl9);
+
+	bowl10 = new Cylinder(bowl_height, bowl_radius);
+	bowl10->SetPos(-65, 1, -30);
+	primitives.PushBack(bowl10);
+
+}
+void ModuleSceneIntro::DeleteBowls()
+{
+	App->physics->RemoveBodyFromWorld(bowl1->body.GetBody());
+	App->physics->RemoveBodyFromWorld(bowl2->body.GetBody());
+	App->physics->RemoveBodyFromWorld(bowl3->body.GetBody());
+	App->physics->RemoveBodyFromWorld(bowl4->body.GetBody());
+	App->physics->RemoveBodyFromWorld(bowl5->body.GetBody());
+	App->physics->RemoveBodyFromWorld(bowl6->body.GetBody());
+	App->physics->RemoveBodyFromWorld(bowl7->body.GetBody());
+	App->physics->RemoveBodyFromWorld(bowl8->body.GetBody());
+	App->physics->RemoveBodyFromWorld(bowl9->body.GetBody());
+	App->physics->RemoveBodyFromWorld(bowl10->body.GetBody());
 }
