@@ -4,7 +4,8 @@
 #include "Globals.h"
 
 class Primitive;
-class  PhysBody3D;
+class PhysBody3D;
+class vec3;
 
 class ModuleSceneIntro : public Module
 {
@@ -23,6 +24,6 @@ public:
 private:
 	void HandleDebugInput();
 	void DebugSpawnPrimitive(Primitive* p);
-
+	void CreateCircuitWall(vec3 dimensions, vec3 pos, vec3 rotation, float angle);
 	p2DynArray<Primitive*> primitives;
 };
