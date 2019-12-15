@@ -98,12 +98,12 @@ bool ModulePlayer::Start()
 	car.wheels[3].brake = true;
 	car.wheels[3].steering = false;
 
-	//vehicle = App->physics->AddVehicle(car);
+	vehicle = App->physics->AddVehicle(car);
 	
-	/*vehicle->SetPos(0, 12, 10);
+	vehicle->SetPos(0, 12, 10);
 	
 	App->camera->Position.y += vehicle->GetPos().y + 10;
-	App->camera->Position.z += vehicle->GetPos().z -15;*/
+	App->camera->Position.z += vehicle->GetPos().z -15;
 	
 	return true;
 }
@@ -163,20 +163,20 @@ update_status ModulePlayer::Update(float dt)
 
 	////camera_offset =  vehicle->GetKmh() / 10;
 
-	////App->camera->Z = vec3(vehicle->vehicle->getForwardVector().x(), vehicle->vehicle->getForwardVector().y(),vehicle->vehicle->getForwardVector().z()  );
+	//App->camera->Z = vec3(vehicle->vehicle->getForwardVector().x(), vehicle->vehicle->getForwardVector().y(),vehicle->vehicle->getForwardVector().z()  );
 
 
 	////Camera pos following car
-	//App->camera->Position = vec3(vehicle->GetPos().x - vehicle->vehicle->getForwardVector().x() * 10, vehicle->GetPos().y + 3 , vehicle->GetPos().z - vehicle->vehicle->getForwardVector().z() * 10 );
+	App->camera->Position = vec3(vehicle->GetPos().x - vehicle->vehicle->getForwardVector().x() * 10, vehicle->GetPos().y + 3 , vehicle->GetPos().z - vehicle->vehicle->getForwardVector().z() * 10 );
 
-	//vehicle->ApplyEngineForce(acceleration);
-	//vehicle->Turn(turn);
-	//vehicle->Brake(brake);
+	vehicle->ApplyEngineForce(acceleration);
+	vehicle->Turn(turn);
+	vehicle->Brake(brake);
 
-	//vehicle->Render();
+	vehicle->Render();
 
 	char title[80];
-	//sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());
+	sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());
 	App->window->SetTitle(title);
 
 	return UPDATE_CONTINUE;

@@ -54,6 +54,8 @@ bool ModulePhysics3D::Start()
 	world->setDebugDrawer(debug_draw);
 	world->setGravity(GRAVITY);
 
+	vehicle_raycaster = new btDefaultVehicleRaycaster(world);
+
 	// Big rectangle as ground
 	{
 		btCollisionShape* colShape = new btBoxShape(btVector3(200.0f, 2.0f, 200.0f));
@@ -198,6 +200,8 @@ PhysVehicle3D* ModulePhysics3D::AddVehicle(const VehicleInfo& info)
 	tuning.m_suspensionCompression = info.suspensionCompression;
 	tuning.m_suspensionDamping = info.suspensionDamping;
 	tuning.m_suspensionStiffness = info.suspensionStiffness;
+
+	
 
 	btRaycastVehicle* vehicle = new btRaycastVehicle(tuning, body, vehicle_raycaster);
 
