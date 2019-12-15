@@ -47,26 +47,41 @@ bool ModuleSceneIntro::Start()
 	CreateCircuitWall(vec3(60.0f, 4.0f, 1.0f), vec3(10.0f, 2.0f, 20.0f), vec3(0.0f, 1.0f, 0.0f), 90.0f);
 
 
-	CreateCircuitWall(vec3(55.0f, 4.0f, 1.0f), vec3(-10.0f, 2.0f, 20.0f), vec3(0.0f, 1.0f, 0.0f), 90.0f);
+	CreateCircuitWall(vec3(56.0f, 4.0f, 1.0f), vec3(-10.0f, 2.0f, 18.0f), vec3(0.0f, 1.0f, 0.0f), 90.0f);
 	
-	CreateCircuitWall(vec3(40.0f, 4.0f, 1.0f), vec3(-10.0f, 2.0f, -10.0f), vec3(0.0f, 1.0f, 0.0f), 0.0f);
+	CreateCircuitWall(vec3(20.0f, 4.0f, 1.0f), vec3(0.0f, 2.0f, -10.0f), vec3(0.0f, 1.0f, 0.0f), 0.0f);
 
 	CreateCircuitWall(vec3(50.0f, 4.0f, 1.0f), vec3(0.0f, 2.0f, 60.0f), vec3(0.0f, 1.0f, 0.0f), 50.0f);
 
 	CreateCircuitWall(vec3(25.0f, 4.0f, 1.0f), vec3(-18.0f, 2.0f, 55.0f), vec3(0.0f, 1.0f, 0.0f), 50.0f);
 
-	CreateCircuitWall(vec3(60.0f, 4.0f, 1.0f), vec3(-10.0f, 2.0f, 80.0f), vec3(0.0f, 1.0f, 0.0f), 0.0f);
+	CreateCircuitWall(vec3(60.0f, 4.0f, 1.0f), vec3(-20.0f, 2.0f, 80.0f), vec3(0.0f, 1.0f, 0.0f), 0.0f);
 
-	CreateCircuitWall(vec3(40.0f, 4.0f, 1.0f), vec3(-50.0f, 2.0f, 70.0f), vec3(0.0f, 1.0f, 0.0f), -50.0f);
+	CreateCircuitWall(vec3(70.0f, 4.0f, 1.0f), vec3(-57.0f, 2.0f, 63.0f), vec3(0.0f, 1.0f, 0.0f), -50.0f);
+	
+	CreateCircuitWall(vec3(40.0f, 4.0f, 1.0f), vec3(-40.0f, 2.0f, 50.0f), vec3(0.0f, 1.0f, 0.0f), -50.0f);
+
+
+	Cube* left_wall = CreateCircuitWall(vec3(100.0f, 4.0f, 1.0f), vec3(-53.0f, 2.0f,-14.0f), vec3(0.0f, 1.0f, 0.0f), 90.0f);
+	Cube* right_wall =	CreateCircuitWall(vec3(100.0f, 4.0f, 1.0f), vec3(-78.0f, 2.0f, -14.0f), vec3(0.0f, 1.0f, 0.0f), 90.0f);
+	
+	left_hinge = CreateCircuitWall(vec3(100.0f, 2.5f, 1.0f), vec3(-53.0f, 2.0f, -14.0f), vec3(0.0f, 1.0f, 0.0f), 90.0f);
+	//App->physics->AddConstraintHinge((Primitive)*left_wall, (Primitive)*left_hinge, btVector3(-1.0f, 0.0f, 0.0f), btVector3(1.0f, 0.0f, 0.0f), btVector3(0.0f, 1.0f, 0.0f), btVector3(0.0f, 1.0f, 0.0f));
+	
+	
+	CreateCircuitWall(vec3(30.0f, 4.0f, 1.0f), vec3(-67.0f, 2.0f, -65.0f), vec3(0.0f, 1.0f, 0.0f), 0.0f);
+
 	return ret;
 }
 
-void ModuleSceneIntro::CreateCircuitWall(vec3 dimensions, vec3 pos, vec3 rotation, float angle) {
+Cube* ModuleSceneIntro::CreateCircuitWall(vec3 dimensions, vec3 pos, vec3 rotation, float angle) {
 	Cube* wall = new Cube(dimensions, 0.0f);
 	wall->SetPos(pos.x, pos.y, pos.z);
 	wall->SetRotation(angle, rotation);
 	wall->color = Aqua;
 	primitives.PushBack(wall);
+
+	return wall;
 }
 
 // Load assets
@@ -135,6 +150,8 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	for (uint n = 0; n < primitives.Count(); n++)
 		primitives[n]->Update();
+
+	//left_hinge->body.GetBody()->applyTorque(btVector3(0.0f, 50000.0f, 0.0f));
 
 	return UPDATE_CONTINUE;
 }

@@ -257,6 +257,13 @@ void DebugDrawer::drawContactPoint(const btVector3& PointOnB, const btVector3& n
 	point.Render();
 }
 
+void ModulePhysics3D::AddConstraintHinge(const Primitive& bodyA, const Primitive& bodyB, const btVector3& pivotInA, const btVector3& pivotInB, const btVector3& axisInA, const btVector3& axisInB) {
+
+	//btTypedConstraint* constraint = new btHingeConstraint(*bodyA.body.GetBody(), *bodyB.body.GetBody(), pivotInA, pivotInB, axisInA, axisInB);
+
+	//world->addConstraint(constraint, true);
+}
+
 void DebugDrawer::reportErrorWarning(const char* warningString)
 {
 	LOG("Bullet warning: %s", warningString);
