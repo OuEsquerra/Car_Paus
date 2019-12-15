@@ -123,6 +123,7 @@ bool ModulePlayer::CleanUp()
 update_status ModulePlayer::Update(float dt)
 {
 	turn = acceleration = brake = 0.0f;
+
 	if (able_to_control)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
@@ -162,25 +163,32 @@ update_status ModulePlayer::Update(float dt)
 			acceleration = -MAX_ACCELERATION;
 		}
 	}
-	//Look at car
-	App->camera->LookAt( vehicle->GetPos() );
+	else 
+	{
+		if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_REPEAT)
+		{
+			able_to_control = true;
+		}
+	}
 
-	////camera_offset =  vehicle->GetKmh() / 10;
 
-	//App->camera->Z = vec3(vehicle->vehicle->getForwardVector().x(), vehicle->vehicle->getForwardVector().y(),vehicle->vehicle->getForwardVector().z()  );
+	if (!App->debug)
+	{
+		//Look at car
+		App->camera->LookAt( vehicle->GetPos() );
 
-
-	////Camera pos following car
-	App->camera->Position = vec3(vehicle->GetPos().x - vehicle->vehicle->getForwardVector().x() * 10, vehicle->GetPos().y + 3 , vehicle->GetPos().z - vehicle->vehicle->getForwardVector().z() * 10 );
-
+		//Camera pos following car
+		App->camera->Position = vec3(vehicle->GetPos().x - vehicle->vehicle->getForwardVector().x() * 10, vehicle->GetPos().y + 3, vehicle->GetPos().z - vehicle->vehicle->getForwardVector().z() * 10);
+	}
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
 
 	vehicle->Render();
 
-	car_sensor->SetPos(vehicle->GetPos().x, vehicle->GetPos().y+2,vehicle->GetPos().z);
-
+	
+	car_sensor->SetPos(vehicle->GetPos().x, vehicle->GetPos().y + 2, vehicle->GetPos().z);
+	
 	char title[80];
 	sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());
 	App->window->SetTitle(title);
