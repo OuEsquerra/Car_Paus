@@ -34,6 +34,7 @@ ModulePhysics3D::~ModulePhysics3D()
 	delete broad_phase;
 	delete dispatcher;
 	delete collision_conf;
+	delete vehicle_raycaster;
 }
 
 // Render not available yet----------------------------------

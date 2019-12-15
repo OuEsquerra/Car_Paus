@@ -30,8 +30,21 @@ PhysBody3D::~PhysBody3D()
 
 void PhysBody3D::SetBody(Sphere* primitive, float mass)
 {
-	SetBody(new btSphereShape(primitive->GetRadius()),
-		primitive, mass);
+	SetBody(new btSphereShape(primitive->GetRadius()),primitive, mass);
+}
+
+void PhysBody3D::SetBody(Cube* primitive, float mass)
+{
+	btVector3 tmp = { primitive->GetSize().x ,primitive->GetSize().y ,primitive->GetSize().z };
+
+	SetBody(new btBoxShape( tmp / 2 ),primitive, mass);
+}
+
+void PhysBody3D::SetBody(Cylinder* primitive, float mass)
+{
+	btVector3 tmp = { primitive->GetHeight() / 2, primitive->GetRadius(), 0.0f };
+
+	SetBody(new btCylinderShape(tmp),primitive, mass);
 }
 
 bool PhysBody3D::HasBody() const

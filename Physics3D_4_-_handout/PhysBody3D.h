@@ -23,6 +23,8 @@ public:
 	~PhysBody3D();
 
 	void SetBody(Sphere* primitive, float mass);
+	void SetBody(Cube* primitive, float mass);
+	void SetBody(Cylinder* primitive, float mass);
 	bool HasBody() const;
 	btRigidBody* GetBody() const;
 

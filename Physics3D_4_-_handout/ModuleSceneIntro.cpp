@@ -20,28 +20,37 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
-	const int SnakeLength = 7;
-	const float StartingSize = 0.5f;
-	const float SizeIncrement = 0.2f;
-	const float BallDistance = 0.3f;
+	//const int SnakeLength = 7;
+	//const float StartingSize = 0.5f;
+	//const float SizeIncrement = 0.2f;
+	//const float BallDistance = 0.3f;
 
-	float XPos = 0.f;
-	float Size = StartingSize;
-	for (int n = 0; n < SnakeLength; n++)
-	{
-		Sphere* s = new Sphere(Size);
-		primitives.PushBack(s);
-		s->SetPos(XPos, 10.f, 2.5f);
+	//float XPos = 0.f;
+	//float Size = StartingSize;
+	//for (int n = 0; n < SnakeLength; n++)
+	//{
+	//	Sphere* s = new Sphere(Size);
+	//	primitives.PushBack(s);
+	//	s->SetPos(XPos, 10.f, 2.5f);
 
-		//TODO 2: Link all the spheres with your P2P constraints
+	//	//TODO 2: Link all the spheres with your P2P constraints
 
-		XPos += Size + Size + SizeIncrement + BallDistance;
-		Size += SizeIncrement;
-	}
+	//	XPos += Size + Size + SizeIncrement + BallDistance;
+	//	Size += SizeIncrement;
+	//}
+
+	Cube* s = new Cube(vec3(5, 1, 2),0);
+	primitives.PushBack(s);
+	s->SetPos(10.f, 1.f, 2.5f);
+
+	XPos += Size + Size + SizeIncrement + BallDistance;
+	Size += SizeIncrement;
+	
 	
 	/*Cube* */Cube* top_constrained_cube = new Cube(vec3(10.0f, 5.0f, 1.0f), 1000.0f);
 	top_constrained_cube->SetPos(10.0f, 2.5f, 20.0f);
 	top_constrained_cube->SetRotation(45.0f, vec3(0.0f, 1.0f, 0.0f));
+
 
 	primitives.PushBack(top_constrained_cube);
 	top_constrained_cube->color = Blue;

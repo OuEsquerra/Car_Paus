@@ -159,7 +159,7 @@ update_status ModulePlayer::Update(float dt)
 	}
 
 	//Look at car
-	//App->camera->LookAt( vehicle->GetPos() );
+	App->camera->LookAt( vehicle->GetPos() );
 
 	////camera_offset =  vehicle->GetKmh() / 10;
 
